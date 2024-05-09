@@ -1,3 +1,47 @@
+<?php
+
+include 'connection.php';
+
+if(isset($_POST['submit'])){
+
+   $name = $_POST['name'];
+   $name = filter_var($name);
+
+   $email = $_POST['email'];
+   $email = filter_var($email);
+
+   $address = $_POST['address'];
+   $address = filter_var($address);
+
+   $pass = md5($_POST['pass']);
+   $pass = filter_var($pass);
+
+   $cpass = md5($_POST['cpass']);
+   $cpass = filter_var($cpass);
+
+   $select = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
+   $select->execute([$email]);
+
+   if($select->rowCount() > 0){
+      $message[] = 'User E-mail Already Exist!';
+   }else{
+      if($pass != $cpass){
+         $message[] = 'Confirm Password Not Matched!';
+      }else{
+         $insert = $conn->prepare("INSERT INTO `users`(name, email, address, password) VALUES(?,?,?,?)");
+         $insert->execute([$name, $email,$address, $pass]);
+
+         if($insert){
+               $message[] = 'Registered Successfully!';
+               header('location:login.php');
+         }
+
+      }
+   }
+
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +66,7 @@
       <h3>Register Now</h3>
       <input type="text" name="name" class="box" placeholder="Enter Your Name" required>
       <input type="email" name="email" class="box" placeholder="Enter Your Email" required>
+      <input type="address" name="address" class="box" placeholder="Enter Your Address" required>
       <input type="password" name="pass" class="box" placeholder="Enter Your Password" required>
       <input type="password" name="cpass" class="box" placeholder="Confirm Your Password" required>
       <input type="submit" value="register now" class="btn" name="submit">
