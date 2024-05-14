@@ -113,24 +113,6 @@
    margin:0 .2rem;
 }
 
-.products .box-container .box .fa-eye{
-   position: absolute;
-   top:1rem; right:1rem;
-   border-radius: .5rem;
-   height: 4.5rem;
-   line-height: 4.3rem;
-   width: 5rem;
-   border:var(--border);
-   color:var(--black);
-   font-size: 2rem;
-   background-color: var(--white);
-}
-
-.products .box-container .box .fa-eye:hover{
-   color:var(--white);
-   background-color: var(--black);
-}
-
 .products .box-container .box img{
    width: 100%;
    margin-bottom: 1rem;

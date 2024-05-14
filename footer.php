@@ -12,9 +12,9 @@
 
       <div class="box">
          <h3>contact info</h3>
-         <p> <i class="fas fa-phone"></i> +71-445-5667 </p>
-         <p> <i class="fas fa-phone"></i> +11-445-5889 </p>
-         <p> <i class="fas fa-envelope"></i> Sl-Items@gmail.com </p>
+         <p> <i class="fas fa-phone"></i> +76-660-1785 </p>
+         <p> <i class="fas fa-phone"></i> +11-000-0000 </p>
+         <p> <i class="fas fa-envelope"></i> sellingsri@gmail.com </p>
          <p> <i class="fas fa-map-marker-alt"></i>Sri Lanka </p>
       </div>
 
@@ -28,6 +28,6 @@
 
    </section>
 
-   <p class="credit"> &copy; Copyright @ <?= date('Y'); ?> By <span>SL- ITEMS</span> | All Rights Reserved! </p>
+   <p class="credit"> &copy; Copyright @ <?= date('Y'); ?> By <span>SELLINGSRI</span> | All Rights Reserved! </p>
 
 </footer>

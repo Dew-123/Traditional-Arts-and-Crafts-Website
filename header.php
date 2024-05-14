@@ -3,7 +3,9 @@
 
    <div class="flex">
 
-      <a href="home.php" class="logo">SL &nbsp<span>ITEMS</span></a>
+      <a href="home.php" class="logo">
+      <img src="images/logo.png" alt="SL Items Logo"style="width: 170px; height: auto;"> 
+      </a>
 
       <nav class="navbar">
          <a href="home.php">Home</a>
