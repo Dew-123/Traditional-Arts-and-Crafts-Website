@@ -19,7 +19,7 @@
          <div id="menu-btn" class="fas fa-bars"></div>
          <a href="search_page.php" class="fas fa-search"></a>
          <a href="wishlist.php"><i class="fas fa-heart"></i><span>(0)</span></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(0)</span></a>
+         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</span></a>
          <div id="user-btn" class="fas fa-user"></div>
       </div>
 

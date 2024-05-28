@@ -1,3 +1,31 @@
+<?php
+
+session_start();
+if (isset($_GET['delete'])) {
+   $delete_id = $_GET['delete'];
+   unset($_SESSION['cart'][$delete_id]);
+   $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindex the array
+   header("Location: cart.php");
+}
+
+if (isset($_GET['delete_all'])) {
+   unset($_SESSION['cart']);
+   header("Location: cart.php");
+}
+
+if (isset($_POST['update_qty'])) {
+   $cart_id = $_POST['cart_id'];
+   $new_qty = $_POST['p_qty'];
+   if ($new_qty > 0) {
+       $_SESSION['cart'][$cart_id]['quantity'] = $new_qty;
+   } else {
+       unset($_SESSION['cart'][$cart_id]);
+   }
+   $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindex the array
+   header("Location: cart.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,24 +51,38 @@
 
    <div class="box-container">
 
+   <?php
+    $grand_total = 0;
+    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+        foreach ($_SESSION['cart'] as $key => $item) {
+            $sub_total = $item['price'] * $item['quantity'];
+            $grand_total += $sub_total;
+   ?>
+
    <form action="" method="POST" class="box">
-      <a href="cart.php?delete=0" class="fas fa-times" onclick="return confirm('delete this from cart?');"></a>
-      <a href="view_page.php?pid=0" class="fas fa-eye"></a>
-      <img src="uploaded_img/0" alt="">
-      <div class="name">0</div>
-      <div class="price">$0/-</div>
-      <input type="hidden" name="cart_id" value="0">
+      <a href="cart.php?delete=<?= $key; ?>" class="fas fa-times" onclick="return confirm('delete this from cart?');"></a>
+      <img src="images/db_images/<?= $item['image']; ?>" alt="">
+      <div class="name"><?= $item['name']; ?></div>
+      <div class="price">$<?= $item['price']; ?>/-</div>
+      <input type="hidden" name="cart_id" value="<?= $key; ?>">
       <div class="flex-btn">
-         <input type="number" min="1" value="0" class="qty" name="p_qty">
+         <input type="number" min="1" value="<?= $item['quantity']; ?>" class="qty" name="p_qty">
          <input type="submit" value="update" name="update_qty" class="option-btn">
       </div>
-      <div class="sub-total"> sub total : <span>$0/-</span> </div>
+      <div class="sub-total"> sub total : <span>$<?= $sub_total; ?>/-</span> </div>
    </form>
+
+   <?php
+        }
+    } else {
+        echo '<p class="empty">Your cart is empty!</p>';
+    }
+   ?>
    
    </div>
 
    <div class="cart-total">
-      <p>Grand Total : <span>$0/-</span></p>
+      <p>Grand Total : <span>$<?= $grand_total; ?>/-</span></p>
       <a href="shop.php" class="option-btn">Continue Shopping</a>
       <a href="cart.php?delete_all" class="delete-btn ">Delete All Items</a>
       <a href="checkout.php" class="btn ">Proceed To Checkout</a>

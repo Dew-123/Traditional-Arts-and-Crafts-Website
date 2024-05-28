@@ -4,6 +4,45 @@
 
 session_start();
 
+if(isset($_POST['add_to_cart'])){
+
+      $pid = $_POST['pid'];
+      $pid = filter_var($pid, FILTER_SANITIZE_STRING);
+      $p_name = $_POST['p_name'];
+      $p_name = filter_var($p_name, FILTER_SANITIZE_STRING);
+      $p_price = $_POST['p_price'];
+      $p_price = filter_var($p_price, FILTER_SANITIZE_STRING);
+      $p_image = $_POST['p_image'];
+      $p_image = filter_var($p_image, FILTER_SANITIZE_STRING);
+      $p_qty = $_POST['p_qty'];
+      $p_qty = filter_var($p_qty, FILTER_SANITIZE_STRING);
+
+      // Check if the session cart exists
+      if (!isset($_SESSION['cart'])) {
+         $_SESSION['cart'] = [];
+      }
+
+      // Check if the product is already in the cart
+      $product_exists = false;
+      foreach ($_SESSION['cart'] as $key => $cart_item) {
+            if ($cart_item['pid'] == $pid) {
+               $_SESSION['cart'][$key]['quantity'] += $p_qty;
+               $product_exists = true;
+               break;
+            }
+      }
+
+      if (!$product_exists) {
+            $_SESSION['cart'][] = [
+               'pid' => $pid,
+               'name' => $p_name,
+               'price' => $p_price,
+               'quantity' => $p_qty,
+               'image' => $p_image
+            ];
+      }
+
+   }
 ?>
 
 <!DOCTYPE html>
