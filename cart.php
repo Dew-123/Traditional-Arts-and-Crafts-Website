@@ -1,6 +1,9 @@
 <?php
 
+@include 'connection.php';
+
 session_start();
+
 if (isset($_GET['delete'])) {
    $delete_id = $_GET['delete'];
    unset($_SESSION['cart'][$delete_id]);
@@ -83,7 +86,7 @@ if (isset($_POST['update_qty'])) {
 
    <div class="cart-total">
       <p>Grand Total : <span>$<?= $grand_total; ?>/-</span></p>
-      <a href="shop.php" class="option-btn">Continue Shopping</a>
+      <a href="home.php" class="option-btn">Continue Shopping</a>
       <a href="cart.php?delete_all" class="delete-btn ">Delete All Items</a>
       <a href="checkout.php" class="btn ">Proceed To Checkout</a>
    </div>
